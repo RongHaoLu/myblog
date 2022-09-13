@@ -1,0 +1,115 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.timelines ul li {
+  list-style-type: none;
+  position: relative;
+  width: 6px;
+  margin: 0 auto;
+  padding-top: 20px;
+  background: #fff;
+}
+.timelines ul li::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  background: #eee;
+}
+.timelines ul li div {
+  position: relative;
+  bottom: 0;
+  width:400px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 4px 13px 30px 1px rgba(1, 0, 56, 0.1);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.timelines ul li div time {
+  position: absolute;
+  background: #f5af10;
+  width: 100px;
+  height: 20px;
+  top: -15px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 2px;
+}
+.timelines ul li div div {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.timelines ul li div div p {
+  text-align: center;
+}
+.timelines ul li div .discovery {
+  margin-right: 10px;
+}
+.timelines ul li:nth-of-type(odd) > div {
+  left: 45px;
+}
+.timelines ul li:nth-of-type(even) > div {
+  left: -439px;
+}
+
+.timelines ul li div {
+
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+}
+.timelines ul li:nth-of-type(odd) div {
+  /*transform: translate3d(100px, -10px, 0) rotate(10deg);*/
+}
+.timelines ul li:nth-of-type(even) div {
+  /*transform: translate3d(-100px, -10px, 0) rotate(10deg);*/
+}
+.timelines ul li.in-view div {
+  transform: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+@media screen and (max-width: 900px) {
+  .timelines ul li div {
+    width: 250px;
+    flex-direction: column;
+  }
+  .timelines ul li div div {
+    width: 80%;
+    margin: 10px;
+  }
+  .timelines ul li:nth-of-type(even) > div {
+    left: -289px;
+  }
+}
+@media screen and (max-width: 600px) {
+  body {
+    /*background: #8bfff4;*/
+  }
+
+  .timelines ul li {
+    margin-left: 20px;
+  }
+  .timelines ul li div {
+    width: calc(100vw - 91px);
+  }
+  .timelines ul li:nth-of-type(even) > div {
+    left: 45px;
+  }
+}

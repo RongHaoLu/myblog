@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rh.blog.mapper.CommentMapper">
+
+    <delete id="comment_delete" parameterType="java.util.List">
+        delete from comment where id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+
+    </delete>
+
+
+    <update id="comment_pass" parameterType="java.util.List">
+        update comment set comment_sta=1 where id in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+    </update>
+
+    <select id="findBlogComment" parameterType="long" resultType="com.rh.blog.pojo.Comment">
+         select *
+        from comment c
+        where c.blog_id = #{id} and c.parent_comment_id = 0 and c.comment_sta=1
+        order by c.create_time desc;
+    </select>
+
+</mapper>

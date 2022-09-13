@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:replace="${title}">葫鲁娃娃</title>
+  <link rel="shortcut icon" href="/static/images/me.ico" />
+  <link href="../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+  <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+  <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+  <link rel="stylesheet" href="../static/css/jquery.emoji.css" th:href="@{/css/jquery.emoji.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../static/css/timeline.css" th:href="@{/css/timeline.css}">
+</head>
+<body>
+
+<!--导航-->
+<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" style="background-color: #000000;opacity: 0.5">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item" title="个人博客">葫鲁娃娃</h2>
+      <a href="#" data-pjax th:href="@{/}" class="m-item item m-mobile-hide " ><i class="mini home icon"></i>&nbsp;首页</a>
+      <a href="#" data-pjax th:href="@{/types}" class="m-item item m-mobile-hide" ><i class="mini idea icon"></i>分类</a>
+      <a href="#" data-pjax th:href="@{/tags}" class="m-item item m-mobile-hide" ><i class="mini tags icon"></i>&nbsp;标签</a>
+      <a href="#" data-pjax th:href="@{/archives}" class="m-item item m-mobile-hide" ><i class="mini clone icon"></i>&nbsp;时间线</a>
+      <a href="#" target="_blank" th:href="@{/Messages}" class="m-item item m-mobile-hide" ><i class="mini envelope outline icon"></i>&nbsp;留言</a>
+      <a href="#" data-pjax th:href="@{/about}" class="m-item item m-mobile-hide" ><i class="mini info icon"></i>关于</a>
+      <a href="#"  class="m-item item m-mobile-hide" ><i class="mini"></i>&nbsp;</a>
+      <a href="#" class="m-item item m-mobile-hide" ><i class="mini"></i>&nbsp;</a>
+
+
+      <div class="right m-item item m-mobile-hide ">
+        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+          <div class="ui icon inverted  input m-margin-tb-tiny">
+            <input type="text" name="query" placeholder="搜你所想。。。" th:value="${query}">
+            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+  <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+
+</nav>
+
+
+
+<!--底部footer-->
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive" style="background-color: #000000;opacity: 0.7">
+  <div id="weather-float-he"></div>
+  <div class="ui center aligned container">
+    <div class="ui inverted divided stackable grid">
+    <div class="four wide column">
+      <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top-max" >联系我</div>
+      <div class="ui inverted link list">
+        <div href="#" class="m-text-thin">Email：1796471427@qq.com</div>
+        <div href="#" class="m-text-thin">QQ：1796471427</div>
+      </div>
+    </div>
+
+    <div class="four wide column" >
+      <div class="ui inverted link list">
+        <div class="item">
+          <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >葫鲁</div>
+          <img src="../static/images/oneStar.jpg" th:src="@{/images/gourd.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+        </div>
+      </div>
+    </div>
+
+    <div class="four wide column">
+      <div class="ui inverted link list">
+        <div class="item">
+          <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >娃娃</div>
+          <img src="" th:src="@{/images/gourd.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+        </div>
+      </div>
+    </div>
+    <!--博客运行时间统计-->
+    <div class="four wide column">
+      <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top">感人的诗</div>
+      <!--<p id="htmer_time" class="item m-text-thin"></p>-->
+      <div id="blog-message">
+        <div class="ui inverted link list" style="align-content: center;margin-top: 10px">
+          <div class="m-text-thin" >
+            葫： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 葫芦窗畔挂</h2>
+          </div>
+          <div class="m-text-thin" >
+            鲁： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 鲁酒未消愁</h2>
+          </div>
+          <div class="m-text-thin" >
+            娃： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 娃馆妒人过</h2>
+          </div>
+          <div class="m-text-thin" >
+            娃： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 娃馆妒人过</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="ui inverted section divider"></div>
+    <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright ©<span th:text="${#dates.year(#dates.createNow())}"></span> - 2022  葫芦娃娃  Designed by rh</p>
+
+    <div style="width:300px;margin:0 auto; padding:1px 0; ">
+      <a target="_blank" href="http://www.beian.miit.gov.cn/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="../images/1.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">
+          粤ICP备20045230号</p></a>
+    </div>
+
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+      var now = new Date();
+      function createtime() {
+        var grt= new Date("12/15/2021 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+      }
+      setInterval("createtime()",500);
+    </script>
+
+  </div>
+
+</footer>
+
+<th:block th:fragment="script">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+  <div class="aplayer" data-id="7584852727" data-server="tencent" data-type="playlist" data-fixed="true" data-autoplay="false"  data-volume="0.6" ></div>
+  <script src="http://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+  <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+  <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+  <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+  <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+  <script src="../static/js/jquery.emoji.js" th:src="@{/js/jquery.emoji.js}"></script>
+  <script src="../static/js/emoji.list.js" th:src="@{/js/emoji.list.js}"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+  <script src="../static/lib/timeline/timeline.js" th:src="@{/lib/timeline/timeline.js}"></script>
+  <script>
+    $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+  </script>
+  <script>
+    $('.ui.dropdown').dropdown({
+      on: 'hover'
+    });
+  </script>
+  <!--适配移动端和电脑端-->53
+  <script type="text/javascript">
+    var browser = {
+      versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {     //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应用程序，没有头部与底部
+        };
+      }(),
+      language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    if (browser.versions.mobile) {
+      //执行移动端的相关代码
+      //alert("移动端");
+      //设置移动端不显示网易云音乐插件
+     onload = function () {
+          var MusicDivShow = document.getElementById('netEasy-music');//获取指定div中的元素
+          MusicDivShow.style.display = 'none';//控制层隐藏
+
+     }else if(!browser.versions.mobile){ //非移动端，动态加载js和div
+      //设置电脑端显示网易云音乐插件
+      onload = function () {
+        /*var MusicDivShow = document.getElementById('netEasy-music');//获取指定div中的元素
+        MusicDivShow.style.display = 'block';//控制层显示*/
+      };
+      var script1 = document.createElement('script');
+      script1.type = 'text/javascript';
+      script1.src = '\\js\\snow.js';
+
+      <!-- 天气预报 -->
+      WIDGET = {FID: 'EtgqPWMbdv'}
+      var script4 = document.createElement('script');
+      script4.type = 'text/javascript';
+      // script4.src = 'https://apip.weatherdt.com/float/static/js/r.js?v=1111';
+
+      var script2 = document.createElement('script');
+      script2.type = 'text/javascript';
+      script2.src = '\\js\\click_show_text.js';
+
+      var script3 = document.createElement('script');
+      script3.type = 'text/javascript';
+      script3.color = '220,220,220';
+      script3.opacity = '0.7';//透明度
+      script3.zIndex = '-2';
+      script3.count = '200';
+      // script3.src = '//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js';
+
+      $('body').append(script1);
+      $('body').append(script4);
+      $('body').append(script2);
+      $('body').append(script3);
+    }
+  </script>
+
+  <script>
+
+
+    $(document).pjax('a[target!=_blank]', '#pjax-containe', {fragment:'#pjax-containe', timeout:8000});
+
+
+  </script>
+
+</th:block>
+</body>
+</html>

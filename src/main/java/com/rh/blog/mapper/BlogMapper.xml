@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rh.blog.mapper.BlogMapper">
+
+    <select id="findAllBlog" resultMap="blogAndTypeAndTag">
+        select * from
+        (blog b left join type t
+        on b.type_id=t.id) left join tag ta
+        on b.flag=ta.tag_id order by b.create_time desc
+    </select>
+
+    <select id="findOne" parameterType="long" resultMap="blogAndTypeAndTag">
+        select * from
+        (blog b left join type t
+        on b.type_id=t.id) left join tag ta
+        on b.flag=ta.tag_id
+        where b.id=#{id}
+    </select>
+    <resultMap id="blogAndTypeAndTag" type="com.rh.blog.pojo.Blog">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="create_time" column="create_time"/>
+        <result property="first_picture" column="first_picture"/>
+        <result property="flag" column="flag"/>
+        <result property="published" column="published"/>
+        <result property="recommend" column="recommend"/>
+        <result property="title" column="title"/>
+        <result property="update_time" column="update_time"/>
+        <result property="views" column="views"/>
+        <result property="type_id" column="type_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="description" column="description"/>
+        <collection property="type" ofType="com.rh.blog.pojo.Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </collection>
+        <collection property="tag" ofType="com.rh.blog.pojo.Tag">
+            <id property="tag_id" column="tag_id"/>
+            <result property="tag_name" column="tag_name"/>
+        </collection>
+
+    </resultMap>
+
+    <update id="updateBlog" parameterType="com.rh.blog.pojo.Blog">
+        update blog set content=#{content},first_picture=#{first_picture},flag=#{flag},
+         published=#{published},recommend=#{recommend},title=#{title},update_time=now(),type_id=#{type_id},commentabled=#{commentabled},description=#{description}
+         where id=#{id}
+    </update>
+
+    <select id="findTypesBlog" parameterType="long" resultMap="blogAndTypeAndTag">
+        select * from
+        (blog b left join type t
+        on b.type_id=t.id) left join tag ta
+        on b.flag=ta.tag_id
+        where type_id=#{type_id}
+    </select>
+
+    <select id="findTagsBlog" parameterType="long" resultMap="blogAndTypeAndTag">
+        select * from
+        (blog b left join type t
+        on b.type_id=t.id) left join tag ta
+        on b.flag=ta.tag_id
+        where flag=#{tag_id}
+    </select>
+
+    <select id="likeBlog" parameterType="string" resultMap="blogAndTypeAndTag">
+    select * from
+    (blog b left join type t
+    on b.type_id=t.id) left join tag ta
+    on b.flag=ta.tag_id
+    where b.title like '%${content}%' or t.name like '%${content}%' or ta.tag_name like '%${content}%'
+    </select>
+
+</mapper>
